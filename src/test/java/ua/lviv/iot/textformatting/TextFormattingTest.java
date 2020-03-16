@@ -2,6 +2,7 @@ package ua.lviv.iot.textformatting;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Scanner;
@@ -35,12 +36,14 @@ class TextFormattingTest {
 
     public String inputTextToFindSuitableWordsIn() {
         String text = "To succeed in life, you need three things: a wishbone, a backbone, and a funny bone.";
-        InputStream in = new ByteArrayInputStream(text.getBytes());
+        try(InputStream in = new ByteArrayInputStream(text.getBytes())){
         System.setIn(in);
 
         Scanner input = new Scanner(System.in);
         inputedText = input.nextLine();
-        input.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return inputedText;
     }
 
