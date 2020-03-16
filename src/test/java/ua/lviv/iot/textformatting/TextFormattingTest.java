@@ -25,12 +25,14 @@ class TextFormattingTest {
 
     public char inputLetterToFindBy() {
         String letter = "e";
-        InputStream in = new ByteArrayInputStream(letter.getBytes());
+        try(InputStream in = new ByteArrayInputStream(letter.getBytes())) {
         System.setIn(in);
 
         Scanner input = new Scanner(System.in);
         inputedLetter = input.next().charAt(0);
-        input.close();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
         return inputedLetter;
     }
 
